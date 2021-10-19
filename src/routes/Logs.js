@@ -35,7 +35,6 @@ export default function Logs() {
                     </span>
                 </Balance>
             </EntriesContainer>
-
             <EntriesOptions>
                 <button>
                     <AddCredits />

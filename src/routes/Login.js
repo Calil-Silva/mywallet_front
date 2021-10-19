@@ -51,6 +51,7 @@ const Form = styled.div`
         border-radius: 5px;
         outline: none;
         border: none;
+        padding-left: 15px;
         ::placeholder {
             font-family: 'Raleway', sans-serif;
             color: black;
