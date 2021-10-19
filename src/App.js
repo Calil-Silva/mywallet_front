@@ -1,13 +1,13 @@
 import { GlobalStyle } from "./globalStyles";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Teste from "./teste";
+import Login from "./routes/Login";
 
 export default function App() {
   return (
     <BrowserRouter>
         <GlobalStyle />
         <Switch>
-          <Route component={Teste}/>
+          <Route component={Login}/>
         </Switch>
     </BrowserRouter>
   );

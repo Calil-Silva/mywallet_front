@@ -35,6 +35,10 @@ body {
 	line-height: 1;
 }
 
+html {
+	background-color: #8C11BE;
+}
+
 * {
     box-sizing: border-box;
 }
