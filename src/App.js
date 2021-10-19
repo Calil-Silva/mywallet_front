@@ -1,7 +1,8 @@
 import { GlobalStyle } from "./globalStyles";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./routes/Login";
-import SignUp from "./routes/SignUp"
+import SignUp from "./routes/SignUp";
+import Logs from "./routes/Logs"
 
 
 export default function App() {
@@ -9,7 +10,7 @@ export default function App() {
     <BrowserRouter>
         <GlobalStyle />
         <Switch>
-          <Route component={SignUp}/>
+          <Route component={Logs}/>
         </Switch>
     </BrowserRouter>
   );

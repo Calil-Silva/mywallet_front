@@ -24,7 +24,6 @@ export default function SignUp() {
 
 const Body = styled.div`
     height: 100vh;
-    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,16 +42,16 @@ const Form = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin: 0 25px;
     input {
-        width: 100vw;
+        width: calc(100vw - 50px);
         height: 58px;
         margin-bottom: 13px;
         font-family: 'Raleway', sans-serif;
         color: black;
         font-size: 20px;
         border-radius: 5px;
+        border: none;
+        outline: none;
         ::placeholder {
             font-family: 'Raleway', sans-serif;
             color: black;
@@ -66,13 +65,11 @@ const Send = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    margin: 0 25px;
     button {
         background-color: #A328D6;
         font-family: 'Raleway', sans-serif;
         font-size: 20px;
-        width: 100vw;
+        width: calc(100vw - 50px);
         height: 46px;
         border-radius: 5px;
         font-weight: bold;
@@ -83,7 +80,7 @@ const Send = styled.div`
         height: 18px;
         color: #fff;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 15px;
         font-family: 'Raleway', sans-serif;
         margin-top: 36px;
     }
