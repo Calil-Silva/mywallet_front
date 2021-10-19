@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export default function Login() {
+export default function SignUp() {
     return (
         <Body>
             <div>
@@ -8,12 +8,14 @@ export default function Login() {
                 MyWallet
             </Header>
             <Form>
+                <input type="text" placeholder="Nome"/>
                 <input type="email" placeholder="E-mail"/>
                 <input type="password" placeholder="Senha"/>
+                <input type="password" placeholder="Confirme a senha"/>
             </Form>
             <Send>
-                <button>Entrar</button>
-                <span>Primeira vez? Cadastra-se</span>
+                <button>Cadastrar</button>
+                <span>Já tem uma conta? Entre agora!</span>
             </Send>
             </div>
         </Body>
@@ -58,6 +60,7 @@ const Form = styled.div`
         }
     }
 `
+
 const Send = styled.div`
     display: flex;
     flex-direction: column;
