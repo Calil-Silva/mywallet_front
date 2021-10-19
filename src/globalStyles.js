@@ -33,7 +33,11 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    background-color: blue;
+}
+
+* {
+    box-sizing: border-box;
+}
 `;
 
 export {
