@@ -1,7 +1,50 @@
+import { useState, useContext, useEffect, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-
+import { postLogin } from "../services/api.js";
+import UserContext from "../contexts/UserContext";
+import { getUserData, storeUserData } from "../services/loginPersistence.js";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const history = useHistory();
+    const { setUserData } = useContext(UserContext);
+
+    const login = useCallback((user) => {
+        setUserData(user);
+        history.push('/logs');
+    }, [setUserData, history])
+
+    useEffect(() => {
+        const userStoredLogin = getUserData();
+        if(userStoredLogin) {
+            login(userStoredLogin)
+        }
+    }, [login]);
+
+    function handleLoginSubmit(e) {
+        e.preventDefault();
+        const userLogin = {
+            email,
+            password
+        }
+        postLogin(userLogin)
+            .then(res => {
+                login(res.data);
+                storeUserData(res.data)
+            })
+            .catch(err => handleError(err.response.status))
+    }
+
+    function handleError(errorCode) {
+        if(errorCode === 403) {
+            alert("E-mail/senha incorretos");
+        } else {
+            alert("Ocorreu um erro inesperado");
+        }
+    }
+
     return (
         <Body>
             <div>
@@ -9,13 +52,13 @@ export default function Login() {
                     MyWallet
                 </Header>
                 <Form>
-                    <input type="email" placeholder="E-mail" />
-                    <input type="password" placeholder="Senha" />
+                    <input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
+                    <button onClick={(e) => handleLoginSubmit(e)}>Entrar</button>
                 </Form>
-                <Send>
-                    <button>Entrar</button>
+                <Register>
                     <span>Primeira vez? Cadastra-se</span>
-                </Send>
+                </Register>
             </div>
         </Body>
     )
@@ -37,7 +80,7 @@ const Header = styled.div`
     color: #fff;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,13 +101,6 @@ const Form = styled.div`
             font-size: 20px;
         }
     }
-`;
-
-const Send = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     button {
         background-color: #A328D6;
         font-family: 'Raleway', sans-serif;
@@ -76,6 +112,13 @@ const Send = styled.div`
         color: #fff;
         border: none;
     }
+`;
+
+const Register = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     span {
         height: 18px;
         color: #fff;
