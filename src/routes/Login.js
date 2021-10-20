@@ -16,6 +16,8 @@ export default function Login() {
         history.push('/logs');
     }, [setUserData, history])
 
+    const teste = "Testando repo"
+
     useEffect(() => {
         const userStoredLogin = getUserData();
         if(userStoredLogin) {
