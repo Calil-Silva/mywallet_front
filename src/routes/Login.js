@@ -42,7 +42,6 @@ export default function Login() {
         if (errorCode === 403) {
             alert("E-mail/senha incorretos");
         } else {
-            console.log(errorCode)
             alert("Ocorreu um erro inesperado");
         }
     }

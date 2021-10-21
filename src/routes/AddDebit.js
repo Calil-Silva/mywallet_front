@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import { RiArrowGoBackFill } from "react-icons/ri"
+import { Link } from "react-router-dom";
 
 export default function AddDebit() {
     return (
         <Body>
             <Header>
                 Nova saída
+                <Link to="/logs">
+                    <RiArrowGoBackFill style= {{color: "white"}}/>
+                </Link>
             </Header>
             <Form>
                 <input type="number" placeholder="Valor" />
@@ -25,6 +30,9 @@ const Header = styled.div`
     font-weight: bold;
     color: #fff;
     margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const Form = styled.form`
@@ -50,4 +58,4 @@ const Form = styled.form`
         background-color: #A328D6;
         color: #fff;
     }
-`
+`;

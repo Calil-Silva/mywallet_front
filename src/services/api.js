@@ -18,7 +18,12 @@ function postUser (userData) {
     return axios.post(`${URL}/signup`, userData);
 }
 
+function getLoggedUser (token) {
+    return axios.get(`${URL}/balances`, setConfig(token))
+}
+
 export {
     postLogin,
-    postUser
+    postUser,
+    getLoggedUser
 }

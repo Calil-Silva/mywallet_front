@@ -1,9 +1,38 @@
 import styled from "styled-components";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { HiOutlineMinusCircle } from "react-icons/hi"
+import { HiOutlineMinusCircle } from "react-icons/hi";
+import { getLoggedUser } from "../services/api.js";
+import { useEffect } from "react";
+import { getUserData } from "../services/loginPersistence.js";
+import { useState } from "react/cjs/react.development";
+import { useHistory } from "react-router";
+import Entries from "../components/Entries.js";
+import { Link } from "react-router-dom";
 
 export default function Logs() {
+    const [loggedUserData, setLoggedUserData] = useState([]);
+    const history = useHistory();
+
+    useEffect(() => {
+        const token = getUserData()?.token;
+        getLoggedUser(token)
+            .then(res => setLoggedUserData(res.data))
+            .catch(err => {
+                if (err.response.status === 401) {
+                    alert("Acesso negado!");
+                    history.push("/");
+                } else {
+                    alert("Ocorreu um erro inesperado, entre novamente");
+                    history.push("/");
+                }
+            })
+    }, [history])
+
+    const sumBalances = loggedUserData.reduce((previousValue, currentValue) => {
+        return previousValue += Number(currentValue.balance);
+    }, 0);
+
     return (
         <Body>
             <Header>
@@ -11,39 +40,33 @@ export default function Logs() {
                 <Logout />
             </Header>
             <EntriesContainer>
-                <Entries>
-                    <Entry>
-                        <div>
-                            <span>
-                                30/11
-                            </span>
-                            <span>
-                                Almoço mãe
-                            </span>
-                        </div>
-                        <span>
-                            39,90
-                        </span>
-                    </Entry>
-                </Entries>
-                <Balance>
+            <EntriesBox>
+                {loggedUserData.map((entry, index) => {
+                    return <Entries key={index} {...entry} />
+                })}
+            </EntriesBox>
+                <Balance sumBalances={sumBalances}>
                     <span>
                         Saldo
                     </span>
                     <span>
-                        2849,96
+                        {(sumBalances).toFixed(2)}
                     </span>
                 </Balance>
             </EntriesContainer>
             <EntriesOptions>
+                <Link to="/addcredit">
                 <button>
-                    <AddCredits />
+                    <AddCredits {...loggedUserData} />
                     <span>{'Nova\nentrada'}</span>
                 </button>
+                </Link>
+                <Link to="/adddebit">
                 <button>
                     <AddDebits />
                     <span>{'Nova\nsaída'}</span>
                 </button>
+                </Link>
             </EntriesOptions>
         </Body>
     )
@@ -82,22 +105,17 @@ const EntriesContainer = styled.div`
     justify-content: space-between;
 `;
 
-const Entries = styled.div`
-    width: 100%;
-    height: 100%;
-    margin-bottom: 10px;
-    overflow-y: scroll;
-`;
-
-const Entry = styled.div`
+const Balance = styled.div`
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-        div {
-            span:first-child {
-                margin-right: 10px;
-            }
-        }
+    font-family: 'Raleway', sans-serif;
+    font-size: 17px;
+    span:first-child {
+        font-weight: bold;
+    }
+    span:last-child {
+        color: ${props => Number(props.sumBalances) > 0 ? 'green' : 'red'};
+    }
 `;
 
 const EntriesOptions = styled.div`
@@ -124,16 +142,6 @@ const EntriesOptions = styled.div`
     }
 `;
 
-const Balance = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Raleway', sans-serif;
-    font-size: 17px;
-    span:first-child {
-        font-weight: bold;
-    }
-`
-
 const AddCredits = styled(IoMdAddCircleOutline)`
     font-size: 25px;
     top: 9px;
@@ -146,4 +154,11 @@ const AddDebits = styled(HiOutlineMinusCircle)`
     top: 9px;
     left: 9px;
     color: #fff;
+`;
+
+const EntriesBox = styled.div`
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+    overflow-y: scroll;
 `;
