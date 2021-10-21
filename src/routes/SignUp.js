@@ -1,22 +1,62 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import { useHistory, Link } from "react-router-dom";
+import { useState } from "react";
+import { postUser } from "../services/api.js";
 
 export default function SignUp() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmedPassword, setConfirmedPassword] = useState("");
+    const history = useHistory();
+
+    function handleUserSignUp(e) {
+        e.preventDefault();
+        if(name && email && password && confirmedPassword) {
+            postUser({
+                name,
+                email,
+                password,
+                confirmedPassword
+            })
+                .then(() => signin())
+                .catch(err => handleError(err.response.status));
+        }
+    }
+
+    function signin() {
+        alert("Registro efetuado com sucesso!");
+        history.push("/");
+    }
+
+    function handleError(errorCode) {
+        if(errorCode === 409) {
+            alert("Email já registrado!")
+        } else if(errorCode === 406) {
+            alert("Senha incorreta!")
+        } else {
+            alert("Ocorreu um erro inesperado");
+        }
+    }
+
     return (
         <Body>
             <div>
-            <Header>
-                MyWallet
-            </Header>
-            <Form>
-                <input type="text" placeholder="Nome"/>
-                <input type="email" placeholder="E-mail"/>
-                <input type="password" placeholder="Senha"/>
-                <input type="password" placeholder="Confirme a senha"/>
-            </Form>
-            <Send>
-                <button>Cadastrar</button>
-                <span>Já tem uma conta? Entre agora!</span>
-            </Send>
+                <Header>
+                    MyWallet
+                </Header>
+                <Form>
+                    <input type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)} />
+                    <input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
+                    <input type="password" placeholder="Confirme a senha" value={confirmedPassword} onChange={e => setConfirmedPassword(e.target.value)} />
+                    <button onClick={(e) => handleUserSignUp(e)}>Cadastrar</button>
+                </Form>
+                <Link to="/">
+                    <Signin>
+                        <span>Já tem uma conta? Entre agora!</span>
+                    </Signin>
+                </Link>
             </div>
         </Body>
     )
@@ -38,7 +78,7 @@ const Header = styled.div`
     color: #fff;
 `
 
-const Form = styled.div`
+const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,13 +99,6 @@ const Form = styled.div`
             font-size: 20px;
         }
     }
-`
-
-const Send = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     button {
         background-color: #A328D6;
         font-family: 'Raleway', sans-serif;
@@ -77,6 +110,13 @@ const Send = styled.div`
         color: #fff;
         border: none;
     }
+`
+
+const Signin = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     span {
         height: 18px;
         color: #fff;

@@ -14,6 +14,11 @@ function postLogin (userData) {
     return axios.post(`${URL}`, userData);
 }
 
+function postUser (userData) {
+    return axios.post(`${URL}/signup`, userData);
+}
+
 export {
-    postLogin
+    postLogin,
+    postUser
 }

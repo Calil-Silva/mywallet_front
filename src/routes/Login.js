@@ -1,9 +1,10 @@
 import { useState, useContext, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
 import { postLogin } from "../services/api.js";
 import UserContext from "../contexts/UserContext";
 import { getUserData, storeUserData } from "../services/loginPersistence.js";
+
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ export default function Login() {
 
     useEffect(() => {
         const userStoredLogin = getUserData();
-        if(userStoredLogin) {
+        if (userStoredLogin) {
             login(userStoredLogin)
         }
     }, [login]);
@@ -38,9 +39,10 @@ export default function Login() {
     }
 
     function handleError(errorCode) {
-        if(errorCode === 403) {
+        if (errorCode === 403) {
             alert("E-mail/senha incorretos");
         } else {
+            console.log(errorCode)
             alert("Ocorreu um erro inesperado");
         }
     }
@@ -56,9 +58,11 @@ export default function Login() {
                     <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
                     <button onClick={(e) => handleLoginSubmit(e)}>Entrar</button>
                 </Form>
-                <Register>
-                    <span>Primeira vez? Cadastra-se</span>
-                </Register>
+                <Link to="/signup">
+                    <Register>
+                        <span>Primeira vez? Cadastra-se</span>
+                    </Register>
+                </Link>
             </div>
         </Body>
     )
