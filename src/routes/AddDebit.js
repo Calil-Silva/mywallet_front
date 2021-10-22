@@ -1,8 +1,36 @@
 import styled from "styled-components";
 import { RiArrowGoBackFill } from "react-icons/ri"
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { postEntry } from "../services/api.js"; 
+import { getUserData } from "../services/loginPersistence.js";
+import { useHistory } from "react-router";
 
 export default function AddDebit() {
+    const [value, setValue] = useState(null);
+    const [description, setDescription] = useState(null);
+    const history = useHistory();
+
+        function postNewEntry () {
+            const token = getUserData()?.token;
+            if(value || description) return alert("Preencha todos os campos.");
+            postEntry(token, {
+                date: new Date(),
+                description,
+                value
+            })
+                .then(res => {
+                    alert("Inserido com sucesso!");
+                })
+                .catch(err => {
+                    if(err.response.status === 401) {
+                        alert("Acesso negado!");
+                        history.push("/");
+                    }
+                    alert("Ocorreu um erro inesperado, tente novamente.")
+                })
+        }
+
     return (
         <Body>
             <Header>
@@ -12,9 +40,9 @@ export default function AddDebit() {
                 </Link>
             </Header>
             <Form>
-                <input type="number" placeholder="Valor" />
-                <input type="text" placeholder="Descrição" />
-                <input type="submit" value="Salvar entrada" />
+                <input type="number" placeholder="Valor" value={value} onChange={(e) => setValue=(e.target.value)}/>
+                <input type="text" placeholder="Descrição" value={description} onChange={(e) => setDescription=(e.target.value)}/>
+                <input type="submit" value="Salvar entrada" onClick={postNewEntry}/>
             </Form>
         </Body>
     )
