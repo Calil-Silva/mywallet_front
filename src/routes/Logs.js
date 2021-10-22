@@ -32,6 +32,7 @@ export default function Logs() {
 
     function signout() {
         const token = getUserData()?.token;
+        console.log(token)
         postLogout(token)
             .then(() => {
                 removeUserData();
@@ -180,4 +181,7 @@ const EntriesBox = styled.div`
     height: 100%;
     margin-bottom: 10px;
     overflow-y: scroll;
+    border-top: 1px solid #d8f2ec;
+    border-bottom: 1px solid #d8f2ec;
+    padding-top: 10px;
 `;

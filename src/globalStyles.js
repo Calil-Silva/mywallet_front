@@ -42,6 +42,12 @@ html {
 
 * {
     box-sizing: border-box;
+	-ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+	::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
 }
 
 a {

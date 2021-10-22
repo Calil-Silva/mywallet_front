@@ -11,13 +11,13 @@ export default function AddCredit() {
     const [description, setDescription] = useState(null);
     const history = useHistory();
 
-        function postNewEntry () {
+        function postNewEntry (e) {
+            e.preventDefault();
             const token = getUserData()?.token;
-            if(value || description) return alert("Preencha todos os campos.");
             postEntry(token, {
                 date: new Date(),
                 description,
-                value
+                balance: value < 0 ? - value : value
             })
                 .then(res => {
                     alert("Inserido com sucesso!");
@@ -26,11 +26,13 @@ export default function AddCredit() {
                     if(err.response.status === 401) {
                         alert("Acesso negado!");
                         history.push("/");
+                    } else if (err.response.status === 206) {
+                        alert("Preencha todos os campos.");
+                    } else {
+                        alert("Ocorreu um erro inesperado, tente novamente.")
                     }
-                    alert("Ocorreu um erro inesperado, tente novamente.")
                 })
         }
-
 
     return (
         <Body>
@@ -41,9 +43,9 @@ export default function AddCredit() {
                 </Link>
             </Header>
             <Form>
-                <input type="number" placeholder="Valor" value={value} onChange={(e) => setValue=(e.target.value)}/>
-                <input type="text" placeholder="Descrição" value={description} onChange={(e) => setDescription=(e.target.value)}/>
-                <input type="submit" value="Salvar entrada" onClick={postNewEntry}/>
+                <input type="number" placeholder="Valor" value={value} onChange={(e) => setValue(e.target.value)}/>
+                <input type="text" placeholder="Descrição" value={description} onChange={(e) => setDescription(e.target.value)}/>
+                <input type="submit" value="Salvar entrada" onClick={(e) => postNewEntry(e)}/>
             </Form>
         </Body>
     )

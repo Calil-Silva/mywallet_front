@@ -27,7 +27,7 @@ function postEntry (token, body) {
 }
 
 function postLogout (token) {
-    return axios.post(`${URL}/logout`, setConfig(token))
+    return axios.post(`${URL}/logout`, "", setConfig(token))
 }
 
 export {

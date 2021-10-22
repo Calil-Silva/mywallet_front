@@ -19,7 +19,7 @@ export default function Entries(props) {
                 </span>
             </div>
             <Total balance={balance}>
-                {balance}
+                {Number(balance).toFixed(2)}
             </Total>
         </Entry>
     )
