@@ -14,6 +14,7 @@ import { postLogout } from "../services/api.js";
 export default function Logs() {
     const [loggedUserData, setLoggedUserData] = useState([]);
     const history = useHistory();
+    const name = getUserData()?.name;
 
     useEffect(() => {
         const token = getUserData()?.token;
@@ -32,7 +33,6 @@ export default function Logs() {
 
     function signout() {
         const token = getUserData()?.token;
-        console.log(token)
         postLogout(token)
             .then(() => {
                 removeUserData();
@@ -56,7 +56,7 @@ export default function Logs() {
     return (
         <Body>
             <Header>
-                Olá, Fulano
+                {`Olá, ${name}`}
                 <Logout onClick={signout}/>
             </Header>
             <EntriesContainer>
@@ -77,7 +77,7 @@ export default function Logs() {
             <EntriesOptions>
                 <Link to="/addcredit">
                 <button>
-                    <AddCredits {...loggedUserData} />
+                    <AddCredits />
                     <span>{'Nova\nentrada'}</span>
                 </button>
                 </Link>
@@ -170,7 +170,7 @@ const AddCredits = styled(IoMdAddCircleOutline)`
 `;
 
 const AddDebits = styled(HiOutlineMinusCircle)`
-        font-size: 25px;
+    font-size: 25px;
     top: 9px;
     left: 9px;
     color: #fff;

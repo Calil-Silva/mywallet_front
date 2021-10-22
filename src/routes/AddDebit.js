@@ -7,8 +7,8 @@ import { getUserData } from "../services/loginPersistence.js";
 import { useHistory } from "react-router";
 
 export default function AddDebit() {
-    const [value, setValue] = useState(null);
-    const [description, setDescription] = useState(null);
+    const [value, setValue] = useState(undefined);
+    const [description, setDescription] = useState(undefined);
     const history = useHistory();
 
     function postNewEntry (e) {
