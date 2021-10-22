@@ -4,11 +4,12 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { HiOutlineMinusCircle } from "react-icons/hi";
 import { getLoggedUser } from "../services/api.js";
 import { useEffect } from "react";
-import { getUserData } from "../services/loginPersistence.js";
+import { getUserData, removeUserData } from "../services/loginPersistence.js";
 import { useState } from "react/cjs/react.development";
 import { useHistory } from "react-router";
 import Entries from "../components/Entries.js";
 import { Link } from "react-router-dom";
+import { postLogout } from "../services/api.js";
 
 export default function Logs() {
     const [loggedUserData, setLoggedUserData] = useState([]);
@@ -29,6 +30,24 @@ export default function Logs() {
             })
     }, [history])
 
+    function signout() {
+        const token = getUserData()?.token;
+        postLogout(token)
+            .then(() => {
+                removeUserData();
+                history.push("/");
+            })
+            .catch(err => handleError(err.response.status))
+    }
+
+    function handleError(errorCode) {
+        if(errorCode === 401) {
+            alert("E-mail de autenticação enviado ao usuário desta conta.")
+        } else {
+            alert("Ocorreu um erro inesperado, entre novamente")
+        }
+    }
+
     const sumBalances = loggedUserData.reduce((previousValue, currentValue) => {
         return previousValue += Number(currentValue.balance);
     }, 0);
@@ -37,7 +56,7 @@ export default function Logs() {
         <Body>
             <Header>
                 Olá, Fulano
-                <Logout />
+                <Logout onClick={signout}/>
             </Header>
             <EntriesContainer>
             <EntriesBox>

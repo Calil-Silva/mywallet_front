@@ -26,9 +26,14 @@ function postEntry (token, body) {
     return axios.post(`${URL}/balances`, body, setConfig(token))
 }
 
+function postLogout (token) {
+    return axios.post(`${URL}/logout`, setConfig(token))
+}
+
 export {
     postLogin,
     postUser,
     getLoggedUser,
-    postEntry
+    postEntry,
+    postLogout
 }
