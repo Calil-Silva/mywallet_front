@@ -41,6 +41,8 @@ export default function Login() {
     function handleError(errorCode) {
         if (errorCode === 403) {
             alert("E-mail/senha incorretos");
+        } else if(errorCode === 404) {
+            alert("Usuário não encontrado");
         } else {
             alert("Ocorreu um erro inesperado");
         }
