@@ -113,16 +113,13 @@ const Form = styled.form`
 `
 
 const Signin = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin-top: 36px;
+    text-align: center;
     span {
         height: 18px;
         color: #fff;
         font-weight: bold;
         font-size: 15px;
         font-family: 'Raleway', sans-serif;
-        margin-top: 36px;
     }
 `

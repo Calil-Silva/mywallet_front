@@ -12,6 +12,7 @@ export default function Login() {
 
     useEffect(() => {
         const userStoredLogin = getUserData();
+
         if (userStoredLogin) {
             history.push('/balances');
         }
@@ -19,26 +20,18 @@ export default function Login() {
 
     function handleLoginSubmit(e) {
         e.preventDefault();
+
         const userLogin = {
             email,
             password
         }
+
         postLogin(userLogin)
             .then(res => {
                 storeUserData(res.data);
                 history.push('/balances');
             })
-            .catch(err => handleError(err.response.status, err.response.data.message))
-    }
-
-    function handleError(errorCode, errorMsg) {
-        if (errorCode === 403) {
-            alert("E-mail/senha incorretos");
-        } else if(errorCode === 404) {
-            alert(errorMsg);
-        } else {
-            alert("Ocorreu um erro inesperado");
-        }
+            .catch(err => alert(err.response.data.message))
     }
 
     return (
@@ -113,16 +106,13 @@ const Form = styled.form`
 `;
 
 const Register = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin-top: 36px;
+    text-align: center;
     span {
         height: 18px;
         color: #fff;
         font-weight: bold;
         font-size: 15px;
         font-family: 'Raleway', sans-serif;
-        margin-top: 36px;
     }
 `;
