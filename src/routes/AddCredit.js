@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { RiArrowGoBackFill } from "react-icons/ri"
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { postEntry } from "../services/api.js"; 
 import { getUserData, removeUserData } from "../services/loginPersistence.js";
-import { useHistory } from "react-router";
 
 export default function AddCredit() {
     const [value, setValue] = useState("");
@@ -43,7 +42,7 @@ export default function AddCredit() {
         <Body>
             <Header>
                 Nova Entrada
-                <Link to="/logs">
+                <Link to="/balances">
                     <RiArrowGoBackFill style= {{color: "white"}}/>
                 </Link>
             </Header>

@@ -2,25 +2,29 @@ import styled from "styled-components";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { HiOutlineMinusCircle } from "react-icons/hi";
-import { getLoggedUser } from "../services/api.js";
-import { useEffect } from "react";
+import { getLoggedUser, postLogout } from "../services/api.js";
+import { useEffect, useState } from "react";
 import { getUserData, removeUserData } from "../services/loginPersistence.js";
-import { useState } from "react/cjs/react.development";
-import { useHistory } from "react-router";
 import Entries from "../components/Entries.js";
-import { Link } from "react-router-dom";
-import { postLogout } from "../services/api.js";
+import { Link, useHistory } from "react-router-dom";
 
-export default function Logs() {
+export default function Balances() {
     const [loggedUserData, setLoggedUserData] = useState([]);
     const history = useHistory();
     const name = getUserData()?.name;
 
     useEffect(() => {
-        const token = getUserData()?.token;
+        const token = getUserData()?.token ? getUserData().token : "123456789";
+
+        function handleError(errorMsg) {
+            alert(errorMsg);
+            removeUserData();
+            history.push("/");
+        }
+
         getLoggedUser(token)
             .then(res => setLoggedUserData(res.data))
-            .catch(err => handleError(err.reponse.status, err.response.data.message))
+            .catch(err => handleError(err.response.data.message))
     }, [history])
 
     function signout() {
@@ -31,12 +35,6 @@ export default function Logs() {
                 history.push("/");
             })
             .catch(err => handleErrorLogout(err.response.status, err.response.data.message))
-    }
-
-    function handleError(errorMsg) {
-        alert(errorMsg);
-        removeUserData();
-        history.push("/");
     }
 
     function handleErrorLogout(errorCode, errorMsg) {

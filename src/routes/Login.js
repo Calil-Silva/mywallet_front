@@ -1,8 +1,7 @@
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
 import { postLogin } from "../services/api.js";
-import UserContext from "../contexts/UserContext";
 import { getUserData, storeUserData } from "../services/loginPersistence.js";
 
 
@@ -10,19 +9,13 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
-    const { setUserData } = useContext(UserContext);
-
-    const login = useCallback((user) => {
-        setUserData(user);
-        history.push('/logs');
-    }, [setUserData, history])
 
     useEffect(() => {
         const userStoredLogin = getUserData();
         if (userStoredLogin) {
-            login(userStoredLogin)
+            history.push('/balances');
         }
-    }, [login]);
+    }, [history]);
 
     function handleLoginSubmit(e) {
         e.preventDefault();
@@ -32,10 +25,20 @@ export default function Login() {
         }
         postLogin(userLogin)
             .then(res => {
-                login(res.data);
-                storeUserData(res.data)
+                storeUserData(res.data);
+                history.push('/balances');
             })
-            .catch(err => alert(err.response.data.message))
+            .catch(err => handleError(err.response.status, err.response.data.message))
+    }
+
+    function handleError(errorCode, errorMsg) {
+        if (errorCode === 403) {
+            alert("E-mail/senha incorretos");
+        } else if(errorCode === 404) {
+            alert(errorMsg);
+        } else {
+            alert("Ocorreu um erro inesperado");
+        }
     }
 
     return (
