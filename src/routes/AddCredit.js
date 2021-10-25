@@ -3,36 +3,41 @@ import { RiArrowGoBackFill } from "react-icons/ri"
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { postEntry } from "../services/api.js"; 
-import { getUserData } from "../services/loginPersistence.js";
+import { getUserData, removeUserData } from "../services/loginPersistence.js";
 import { useHistory } from "react-router";
 
 export default function AddCredit() {
-    const [value, setValue] = useState(undefined);
-    const [description, setDescription] = useState(undefined);
+    const [value, setValue] = useState("");
+    const [description, setDescription] = useState("");
     const history = useHistory();
 
-        function postNewEntry (e) {
-            e.preventDefault();
-            const token = getUserData()?.token;
-            postEntry(token, {
-                date: new Date(),
-                description,
-                balance: value < 0 ? - value : value
-            })
-                .then(res => {
-                    alert("Inserido com sucesso!");
-                })
-                .catch(err => {
-                    if(err.response.status === 401) {
-                        alert("Acesso negado!");
-                        history.push("/");
-                    } else if (err.response.status === 206) {
-                        alert("Preencha todos os campos.");
-                    } else {
-                        alert("Ocorreu um erro inesperado, tente novamente.")
-                    }
-                })
+    function postNewEntry (e) {
+        e.preventDefault();
+        const token = getUserData()?.token;
+        postEntry(token, {
+            date: new Date(),
+            description,
+            balance: value < 0 ? - value : value
+        })
+            .then(res => handleSuccess(res.data.message))
+            .catch(err => handleError(err.response.status, err.response.data.message));
+    };
+
+    function handleSuccess(successMsg) {
+        alert(successMsg);
+        setValue("");
+        setDescription("");
+    };
+
+    function handleError(errorCode, errorMsg) {
+        if(errorCode === 401) {
+            alert(errorMsg);
+            removeUserData();
+            history.push("/");
+        } else {
+            alert(errorMsg);
         }
+    };
 
     return (
         <Body>

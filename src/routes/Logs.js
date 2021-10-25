@@ -20,15 +20,7 @@ export default function Logs() {
         const token = getUserData()?.token;
         getLoggedUser(token)
             .then(res => setLoggedUserData(res.data))
-            .catch(err => {
-                if (err.response.status === 401) {
-                    alert("Acesso negado!");
-                    history.push("/");
-                } else {
-                    alert("Ocorreu um erro inesperado, entre novamente");
-                    history.push("/");
-                }
-            })
+            .catch(err => handleError(err.reponse.status, err.response.data.message))
     }, [history])
 
     function signout() {
@@ -38,14 +30,22 @@ export default function Logs() {
                 removeUserData();
                 history.push("/");
             })
-            .catch(err => handleError(err.response.status))
+            .catch(err => handleErrorLogout(err.response.status, err.response.data.message))
     }
 
-    function handleError(errorCode) {
+    function handleError(errorMsg) {
+        alert(errorMsg);
+        removeUserData();
+        history.push("/");
+    }
+
+    function handleErrorLogout(errorCode, errorMsg) {
         if(errorCode === 401) {
-            alert("E-mail de autenticação enviado ao usuário desta conta.")
+            alert(errorMsg);
+            removeUserData();
+            history.push("/");
         } else {
-            alert("Ocorreu um erro inesperado, entre novamente")
+            alert(errorMsg);
         }
     }
 
@@ -61,9 +61,9 @@ export default function Logs() {
             </Header>
             <EntriesContainer>
             <EntriesBox>
-                {loggedUserData.map((entry, index) => {
+                {loggedUserData.length > 0 ? loggedUserData.map((entry, index) => {
                     return <Entries key={index} {...entry} />
-                })}
+                }) : "Você ainda não tem um histórico."}
             </EntriesBox>
                 <Balance sumBalances={sumBalances}>
                     <span>
@@ -130,6 +130,7 @@ const Balance = styled.div`
     justify-content: space-between;
     font-family: 'Raleway', sans-serif;
     font-size: 17px;
+    height: 20px;
     span:first-child {
         font-weight: bold;
     }

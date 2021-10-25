@@ -35,17 +35,7 @@ export default function Login() {
                 login(res.data);
                 storeUserData(res.data)
             })
-            .catch(err => handleError(err.response.status, err.response.data.message))
-    }
-
-    function handleError(errorCode, errorMsg) {
-        if (errorCode === 403) {
-            alert("E-mail/senha incorretos");
-        } else if(errorCode === 404) {
-            alert(errorMsg);
-        } else {
-            alert("Ocorreu um erro inesperado");
-        }
+            .catch(err => alert(err.response.data.message))
     }
 
     return (
