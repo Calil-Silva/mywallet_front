@@ -5,6 +5,7 @@ import { useState } from "react";
 import { postEntry } from "../services/api.js";
 import { getUserData, removeUserData } from "../services/loginPersistence.js";
 import { useParams } from "react-router";
+import Input from "../styles/Input.js";
 
 export default function AddEntry() {
   const [value, setValue] = useState("");
@@ -65,25 +66,26 @@ export default function AddEntry() {
           <RiArrowGoBackFill style={{ color: "white" }} />
         </Link>
       </Header>
-      <Form>
-        <input
+      <form>
+        <Input
           type="number"
           placeholder="Valor"
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <input
+        <Input
           type="text"
           placeholder="Descrição"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <input
+        <Input
           type="submit"
           value="Salvar entrada"
           onClick={(e) => postNewEntry(e)}
+          button={true}
         />
-      </Form>
+      </form>
     </Body>
   );
 }
@@ -104,23 +106,6 @@ const Header = styled.div`
 `;
 
 const Form = styled.form`
-  input {
-    height: 58px;
-    width: calc(100vw - 50px);
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    font-size: 20px;
-    font-family: "Raleway", sans-serif;
-    margin-bottom: 13px;
-    padding-left: 15px;
-    ::placeholder {
-      color: black;
-      font-size: 20px;
-      font-family: "Raleway", sans-serif;
-    }
-  }
-
   input:last-child {
     font-weight: bold;
     background-color: #a328d6;

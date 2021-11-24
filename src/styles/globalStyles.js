@@ -47,7 +47,6 @@ html {
     overflow-y: scroll;
 	::-webkit-scrollbar {
     display: none;
-	font-family: "Raleway", sans-serif;
 }
 }
 
