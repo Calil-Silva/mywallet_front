@@ -12,16 +12,13 @@ export default function App() {
       <Switch>
         <Route path="/" component={UpsertUser} exact />
         <Route path="/:userStatus" component={UpsertUser} exact />
-        <ProtectedRoute>
-          <Route path="/:userStatus/:user" component={Balances} exact />
-        </ProtectedRoute>
-        <ProtectedRoute>
+        <Route path="/:userStatus/:user" component={Balances} exact />
           <Route
             path="/:userStatus/:user/:entryType"
             component={AddEntry}
             exact
           />
-        </ProtectedRoute>
+
       </Switch>
     </BrowserRouter>
   );
