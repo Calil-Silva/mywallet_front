@@ -3,6 +3,8 @@ import { useHistory, Link } from "react-router-dom";
 import { useState } from "react";
 import { postUser } from "../services/api.js";
 import Input from "../styles/Input.js";
+import font from "../styles/font.js";
+import theme from "../styles/theme.js";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -97,9 +99,9 @@ const Header = styled.div`
   height: 50px;
   width: 147px;
   margin: 0 auto 24px;
-  font-family: "Saira Stencil One", cursive;
+  font-family: ${font.header};
   font-size: 32px;
-  color: #fff;
+  color: ${theme.white};
 `;
 
 const Form = styled.form`
@@ -113,9 +115,8 @@ const Signin = styled.div`
   text-align: center;
   span {
     height: 18px;
-    color: #fff;
+    color: ${theme.white};
     font-weight: bold;
     font-size: 15px;
-    font-family: "Raleway", sans-serif;
   }
 `;

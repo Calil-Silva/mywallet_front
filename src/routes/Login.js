@@ -3,7 +3,9 @@ import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
 import { postLogin } from "../services/api.js";
 import { getUserData, storeUserData } from "../services/loginPersistence.js";
+import font from "../styles/font.js";
 import Input from "../styles/Input.js";
+import theme from "../styles/theme.js";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -79,9 +81,9 @@ const Header = styled.div`
   height: 50px;
   width: 147px;
   margin: 0 auto 24px;
-  font-family: "Saira Stencil One", cursive;
+  font-family: ${font.header};
   font-size: 32px;
-  color: #fff;
+  color: ${theme.white};
 `;
 
 const Form = styled.form`
@@ -95,9 +97,8 @@ const Register = styled.div`
   text-align: center;
   span {
     height: 18px;
-    color: #fff;
+    color: ${theme.white};
     font-weight: bold;
     font-size: 15px;
-    font-family: "Raleway", sans-serif;
   }
 `;

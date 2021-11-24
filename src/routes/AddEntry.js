@@ -104,11 +104,3 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
-const Form = styled.form`
-  input:last-child {
-    font-weight: bold;
-    background-color: #a328d6;
-    color: #fff;
-  }
-`;

@@ -1,3 +1,5 @@
+import font from "./font";
+
 const { createGlobalStyle } = require("styled-components");
 
 const GlobalStyle = createGlobalStyle`
@@ -34,6 +36,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	width: 100%;
+	font-family: ${font.general};
 }
 
 html {
@@ -47,6 +50,7 @@ html {
     overflow-y: scroll;
 	::-webkit-scrollbar {
     display: none;
+	font-family: "Raleway", sans-serif;
 }
 }
 
