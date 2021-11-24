@@ -1,4 +1,4 @@
-import { GlobalStyle } from "./globalStyles";
+import { GlobalStyle } from "../src/styles/globalStyles";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./routes/Login";
 import SignUp from "./routes/SignUp";

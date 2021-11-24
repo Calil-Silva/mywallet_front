@@ -1,6 +1,6 @@
 const { createGlobalStyle } = require("styled-components");
 
-const GlobalStyle = createGlobalStyle `
+const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -46,7 +46,8 @@ html {
     scrollbar-width: none;
     overflow-y: scroll;
 	::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
+    display: none;
+	font-family: "Raleway", sans-serif;
 }
 }
 
@@ -55,6 +56,4 @@ a {
 }
 `;
 
-export {
-    GlobalStyle
-}
+export { GlobalStyle };
