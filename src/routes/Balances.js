@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 import { getUserData, removeUserData } from "../services/loginPersistence.js";
 import { Link, useHistory } from "react-router-dom";
 import Entry from "../components/Entry.js";
+import { useParams } from "react-router";
 
 export default function Balances() {
   const [loggedUserData, setLoggedUserData] = useState([]);
   const history = useHistory();
   const name = getUserData()?.name;
+  const { user } = useParams();
 
   useEffect(() => {
     let token = getUserData()?.token && getUserData().token;
@@ -73,13 +75,13 @@ export default function Balances() {
         </Balance>
       </EntriesContainer>
       <EntriesOptions>
-        <Link to="/balances/addcredit">
+        <Link to={`/balances/${user}/addcredit`}>
           <button>
             <AddCredits />
             <span>{"Nova\nentrada"}</span>
           </button>
         </Link>
-        <Link to="/balances/adddebit">
+        <Link to={`/balances/${user}/adddebit`}>
           <button>
             <AddDebits />
             <span>{"Nova\nsaída"}</span>

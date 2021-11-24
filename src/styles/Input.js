@@ -16,6 +16,7 @@ const Input = styled.input`
   padding-left: 15px;
   background-color: ${({ button }) =>
     button ? theme.lightPurple : theme.white};
+  display: ${({ show }) => (show ? "initial" : "none")};
   ::placeholder {
     font-family: ${font.general};
     color: black;
