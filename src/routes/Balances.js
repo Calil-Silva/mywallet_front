@@ -5,8 +5,8 @@ import { HiOutlineMinusCircle } from "react-icons/hi";
 import { getLoggedUser, postLogout } from "../services/api.js";
 import { useEffect, useState } from "react";
 import { getUserData, removeUserData } from "../services/loginPersistence.js";
-import Entries from "../components/Entries.js";
 import { Link, useHistory } from "react-router-dom";
+import Entry from "../components/Entry.js";
 
 export default function Balances() {
   const [loggedUserData, setLoggedUserData] = useState([]);
@@ -63,7 +63,7 @@ export default function Balances() {
         <EntriesBox>
           {loggedUserData.length > 0
             ? loggedUserData.map((entry, index) => {
-                return <Entries key={index} {...entry} />;
+                return <Entry key={index} {...entry} />;
               })
             : "Você ainda não tem um histórico."}
         </EntriesBox>
@@ -73,13 +73,13 @@ export default function Balances() {
         </Balance>
       </EntriesContainer>
       <EntriesOptions>
-        <Link to="/addcredit">
+        <Link to="/balances/addcredit">
           <button>
             <AddCredits />
             <span>{"Nova\nentrada"}</span>
           </button>
         </Link>
-        <Link to="/adddebit">
+        <Link to="/balances/adddebit">
           <button>
             <AddDebits />
             <span>{"Nova\nsaída"}</span>
