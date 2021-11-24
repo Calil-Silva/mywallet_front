@@ -1,6 +1,5 @@
 import axios from "axios";
-// const URL = "https://my-wallet-server-app.herokuapp.com";
-const URL = "http://localhost:4000";
+const URL = process.env.REACT_APP_API_URL;
 
 function setConfig(token) {
   return {
