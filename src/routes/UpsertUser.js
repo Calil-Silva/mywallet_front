@@ -28,7 +28,7 @@ export default function UpsertUser() {
     const userStoredLogin = getUserData();
 
     if (userStoredLogin) {
-      history.push("/balances");
+      history.push(`/balances/${userStoredLogin.name}`);
     }
   }, [history]);
 
