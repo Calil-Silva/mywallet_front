@@ -7,8 +7,7 @@ import { getUserData, removeUserData } from "../services/loginPersistence";
 export default function ProtectedRoute({ children }) {
   let token = getUserData()?.token && getUserData().token;
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
-  
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   function handleError(errorMsg) {
     alert(errorMsg);
@@ -16,13 +15,10 @@ export default function ProtectedRoute({ children }) {
     history.push("/");
   }
 
-  getAuthentication(token)
-    // .then(() => setIsAuthenticated(true))
-    .catch((err) => {
-      setIsAuthenticated(false);
-      handleError(err.response.data.message)
-    });
+  getAuthentication(token).catch((err) => {
+    setIsAuthenticated(false);
+    handleError(err.response.data.message);
+  });
 
-
-  return isAuthenticated ? children : <UpsertUser />
+  return isAuthenticated ? children : <UpsertUser />;
 }

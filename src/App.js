@@ -10,15 +10,22 @@ export default function App() {
     <BrowserRouter>
       <GlobalStyle />
       <Switch>
-        <Route path="/" component={UpsertUser} exact />
-        <Route path="/:userStatus" component={UpsertUser} exact />
-        <Route path="/:userStatus/:user" component={Balances} exact />
-          <Route
-            path="/:userStatus/:user/:entryType"
-            component={AddEntry}
-            exact
-          />
-
+        <Route path="/" exact>
+          <UpsertUser />
+        </Route>
+        <Route path="/:userStatus" exact>
+          <UpsertUser />
+        </Route>
+        <Route path="/:userStatus/:user" exact>
+          <ProtectedRoute>
+            <Balances />
+          </ProtectedRoute>
+        </Route>
+        <Route path="/:userStatus/:user/:entryType" exact>
+          <ProtectedRoute>
+            <AddEntry />
+          </ProtectedRoute>
+        </Route>
       </Switch>
     </BrowserRouter>
   );
