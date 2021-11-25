@@ -1,24 +1,16 @@
 import { useHistory } from "react-router";
-import { useState } from "react/cjs/react.development";
 import UpsertUser from "../routes/UpsertUser";
-import { getAuthentication } from "../services/api";
-import { getUserData, removeUserData } from "../services/loginPersistence";
+import { getUserData } from "../services/loginPersistence";
 
 export default function ProtectedRoute({ children }) {
-  let token = getUserData()?.token && getUserData().token;
+  let isAuthenticated = getUserData()?.token && getUserData().token;
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  function handleError(errorMsg) {
-    alert(errorMsg);
-    removeUserData();
+  if (!isAuthenticated) {
+    alert("Você precisa estar logado para continuar");
     history.push("/");
+    return <UpsertUser />;
   }
 
-  getAuthentication(token).catch((err) => {
-    setIsAuthenticated(false);
-    handleError(err.response.data.message);
-  });
-
-  return isAuthenticated ? children : <UpsertUser />;
+  return children;
 }

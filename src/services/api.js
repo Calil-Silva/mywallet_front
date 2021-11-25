@@ -29,15 +29,4 @@ function postLogout(token) {
   return axios.post(`${URL}/logout`, "", setConfig(token));
 }
 
-function getAuthentication(token) {
-  return axios.get(`${URL}/authentication`, setConfig(token));
-}
-
-export {
-  postLogin,
-  postUser,
-  getLoggedUser,
-  postEntry,
-  postLogout,
-  getAuthentication,
-};
+export { postLogin, postUser, getLoggedUser, postEntry, postLogout };
