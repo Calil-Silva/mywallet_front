@@ -1,6 +1,6 @@
 ## About the project
 
-This project was built with with React.js using Creat React App. It is a ``financial schedule``, where user can ``register`` his incomes, expanses and see the final balance.
+This project was built with with React.js using Creat React App. It is a ``financial schedule``, where user can ``register`` his incomes, expenses and see the final balance.
 
 ### Motivation
 
@@ -49,14 +49,14 @@ npm install
 npm start
 ```
 
-4. Run ``npm tart`` on front-end repo as well
+4. Run ``npm start`` on front-end repo as well
 
 
 
 **You can find more details about the back-end repo here: https://github.com/Calil-Silva/mywallet_back/tree/main#readme**
 
 
-### Scipts
+### Scripts
 
 In this project, how it was created with Create-React-App, you can use ``npm start`` to run the application on server (http://localhost:3000).
 
