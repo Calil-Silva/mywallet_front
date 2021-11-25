@@ -52,6 +52,10 @@ npm start
 4. Run ``npm tart`` on front-end repo as well
 
 
+
+**You can find more details about the back-end repo here: https://github.com/Calil-Silva/mywallet_back/tree/main#readme**
+
+
 ### Scipts
 
 In this project, how it was created with Create-React-App, you can use ``npm start`` to run the application on server (http://localhost:3000).
