@@ -1,6 +1,7 @@
 import { GlobalStyle } from "../src/styles/globalStyles";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import UpsertUser from "./routes/UpsertUser";
+import SignUp from "./routes/SignUp";
+import SignIn from "./routes/SignIn";
 import Balances from "./routes/Balances";
 import AddEntry from "./routes/AddEntry";
 import ProtectedRoute from "./shared/ProtectedRoute";
@@ -11,17 +12,17 @@ export default function App() {
       <GlobalStyle />
       <Switch>
         <Route path="/" exact>
-          <UpsertUser />
+          <SignIn />
         </Route>
-        <Route path="/:userStatus" exact>
-          <UpsertUser />
+        <Route path="/signup" exact>
+          <SignUp />
         </Route>
-        <Route path="/:userStatus/:user" exact>
+        <Route path="/balances" exact>
           <ProtectedRoute>
             <Balances />
           </ProtectedRoute>
         </Route>
-        <Route path="/:userStatus/:user/:entryType" exact>
+        <Route path="/balances/:entryType" exact>
           <ProtectedRoute>
             <AddEntry />
           </ProtectedRoute>
