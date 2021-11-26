@@ -1,5 +1,5 @@
 import { useHistory } from "react-router";
-import UpsertUser from "../routes/UpsertUser";
+import SignIn from "../routes/SignIn";
 import { getUserData } from "../services/loginPersistence";
 
 export default function ProtectedRoute({ children }) {
@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }) {
   if (!isAuthenticated) {
     alert("Você precisa estar logado para continuar");
     history.push("/");
-    return <UpsertUser />;
+    return <SignIn />;
   }
 
   return children;

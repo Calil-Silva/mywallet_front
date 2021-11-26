@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components/macro";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { HiOutlineMinusCircle } from "react-icons/hi";
@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 import { getUserData, removeUserData } from "../services/loginPersistence.js";
 import { Link, useHistory } from "react-router-dom";
 import Entry from "../components/Entry.js";
-import { useParams } from "react-router";
+import theme from "../styles/theme.js";
+import font from "../styles/font.js";
 
 export default function Balances() {
   const [loggedUserData, setLoggedUserData] = useState([]);
   const history = useHistory();
   const name = getUserData()?.name;
-  const { user } = useParams();
 
   useEffect(() => {
     let token = getUserData()?.token && getUserData().token;
@@ -75,13 +75,13 @@ export default function Balances() {
         </Balance>
       </EntriesContainer>
       <EntriesOptions>
-        <Link to={`/balances/${user}/addcredit`}>
+        <Link to={`/balances/addcredit`}>
           <button>
             <AddCredits />
             <span>{"Nova\nentrada"}</span>
           </button>
         </Link>
-        <Link to={`/balances/${user}/adddebit`}>
+        <Link to={`/balances/adddebit`}>
           <button>
             <AddDebits />
             <span>{"Nova\nsaída"}</span>
@@ -91,6 +91,13 @@ export default function Balances() {
     </Body>
   );
 }
+
+const Icons = css`
+  font-size: 25px;
+  top: 9px;
+  left: 9px;
+  color: ${theme.white};
+`;
 
 const Body = styled.div`
   padding: 25px 25px 10px;
@@ -146,7 +153,7 @@ const EntriesOptions = styled.div`
     width: calc((100vw - 15px - 50px) / 2);
     height: 114px;
     border-radius: 5px;
-    background-color: #a328d6;
+    background-color: ${theme.lightPurple};
     border: none;
     padding: 9px;
     display: flex;
@@ -154,7 +161,7 @@ const EntriesOptions = styled.div`
     justify-content: space-between;
     span {
       color: #fff;
-      font-family: "Raleway", sans-serif;
+      font-family: ${font.general};
       font-size: 17px;
       font-weight: bold;
       white-space: pre-wrap;
@@ -164,17 +171,11 @@ const EntriesOptions = styled.div`
 `;
 
 const AddCredits = styled(IoMdAddCircleOutline)`
-  font-size: 25px;
-  top: 9px;
-  left: 9px;
-  color: #fff;
+  ${Icons}
 `;
 
 const AddDebits = styled(HiOutlineMinusCircle)`
-  font-size: 25px;
-  top: 9px;
-  left: 9px;
-  color: #fff;
+  ${Icons}
 `;
 
 const EntriesBox = styled.div`
@@ -182,7 +183,7 @@ const EntriesBox = styled.div`
   height: 100%;
   margin-bottom: 10px;
   overflow-y: scroll;
-  border-top: 1px solid #d8f2ec;
-  border-bottom: 1px solid #d8f2ec;
+  border-top: 1px solid ${theme.lightGreen};
+  border-bottom: 1px solid ${theme.lightGreen};
   padding-top: 10px;
 `;
