@@ -10,7 +10,7 @@ function setConfig(token) {
 }
 
 function postLogin(userData) {
-  return axios.post(`${URL}`, userData);
+  return axios.post(`${URL}/signin`, userData);
 }
 
 function postUser(userData) {
@@ -26,7 +26,7 @@ function postEntry(token, body) {
 }
 
 function postLogout(token) {
-  return axios.post(`${URL}/logout`, "", setConfig(token));
+  return axios.delete(`${URL}/signout`, setConfig(token));
 }
 
 export { postLogin, postUser, getLoggedUser, postEntry, postLogout };
