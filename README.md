@@ -43,7 +43,7 @@ https://github.com/Calil-Silva/mywallet_front.git
 npm install
 ```
 
-3. Clone the back-end repo and run the following command:
+3. Clone the back-end repo and run the command:
 
 ```
 npm start
